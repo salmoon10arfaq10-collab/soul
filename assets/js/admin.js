@@ -115,9 +115,7 @@ async function loadRecentMessages() {
 
 function loadSectionData(section) {
     switch(section) {
-        case 'services': loadServices(); break;
         case 'causes': loadCauses(); break;
-        case 'team': loadTeam(); break;
         case 'blog': loadBlog(); break;
         case 'events': loadEvents(); break;
         case 'testimonials': loadTestimonials(); break;
@@ -126,47 +124,6 @@ function loadSectionData(section) {
         case 'donations': loadDonations(); break;
     }
 }
-
-// SERVICES
-document.getElementById('addServiceBtn').addEventListener('click', () => {
-    document.getElementById('serviceId').value = '';
-    document.getElementById('serviceName').value = '';
-    document.getElementById('serviceDesc').value = '';
-    document.getElementById('serviceIcon').value = '';
-    document.getElementById('serviceModalTitle').textContent = 'Add Service';
-    document.getElementById('serviceModal').style.display = 'flex';
-});
-
-document.getElementById('serviceForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const id = document.getElementById('serviceId').value;
-    const obj = { title: document.getElementById('serviceName').value, description: document.getElementById('serviceDesc').value, icon: document.getElementById('serviceIcon').value };
-    if (id) { await supabaseClient.from('services').update(obj).eq('id', id); }
-    else { await supabaseClient.from('services').insert([obj]); }
-    document.getElementById('serviceModal').style.display = 'none';
-    loadServices();
-});
-
-async function loadServices() {
-    const { data } = await supabaseClient.from('services').select('*').order('created_at', { ascending: false });
-    const c = document.getElementById('servicesList');
-    if (!data || !data.length) { c.innerHTML = '<p style="padding:20px;color:#999;">No services yet.</p>'; return; }
-    c.innerHTML = data.map(s => '<div class="item-card"><div class="item-card-body"><h4><i class="' + s.icon + '"></i> ' + s.title + '</h4><p>' + (s.description || '').substring(0, 100) + '</p><div class="item-actions"><button class="btn-edit" onclick="editService(\'' + s.id + '\')">Edit</button><button class="btn-delete" onclick="deleteService(\'' + s.id + '\')">Delete</button></div></div></div>').join('');
-}
-
-window.editService = async function(id) {
-    const { data } = await supabaseClient.from('services').select('*').eq('id', id).single();
-    document.getElementById('serviceId').value = data.id;
-    document.getElementById('serviceName').value = data.title;
-    document.getElementById('serviceDesc').value = data.description;
-    document.getElementById('serviceIcon').value = data.icon;
-    document.getElementById('serviceModalTitle').textContent = 'Edit Service';
-    document.getElementById('serviceModal').style.display = 'flex';
-};
-
-window.deleteService = async function(id) {
-    if (confirm('Delete this service?')) { await supabaseClient.from('services').delete().eq('id', id); loadServices(); }
-};
 
 // CAUSES
 document.getElementById('addCauseBtn').addEventListener('click', () => {
@@ -212,48 +169,6 @@ window.editCause = async function(id) {
 
 window.deleteCause = async function(id) {
     if (confirm('Delete this cause?')) { await supabaseClient.from('causes').delete().eq('id', id); loadCauses(); }
-};
-
-// TEAM
-document.getElementById('addMemberBtn').addEventListener('click', () => {
-    document.getElementById('memberId').value = '';
-    document.getElementById('memberName').value = '';
-    document.getElementById('memberPosition').value = '';
-    document.getElementById('memberModalTitle').textContent = 'Add Member';
-    document.getElementById('memberModal').style.display = 'flex';
-});
-
-document.getElementById('memberForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const id = document.getElementById('memberId').value;
-    const file = document.getElementById('memberPhoto').files[0];
-    const photo_url = await uploadImage(file, 'team');
-    const obj = { name: document.getElementById('memberName').value, position: document.getElementById('memberPosition').value };
-    if (photo_url) obj.photo_url = photo_url;
-    if (id) { await supabaseClient.from('team_members').update(obj).eq('id', id); }
-    else { await supabaseClient.from('team_members').insert([obj]); }
-    document.getElementById('memberModal').style.display = 'none';
-    loadTeam();
-});
-
-async function loadTeam() {
-    const { data } = await supabaseClient.from('team_members').select('*').order('created_at', { ascending: false });
-    const c = document.getElementById('teamList');
-    if (!data || !data.length) { c.innerHTML = '<p style="padding:20px;color:#999;">No team members yet.</p>'; return; }
-    c.innerHTML = data.map(m => '<div class="item-card">' + (m.photo_url ? '<img src="' + m.photo_url + '" alt="">' : '') + '<div class="item-card-body"><h4>' + m.name + '</h4><p>' + m.position + '</p><div class="item-actions"><button class="btn-edit" onclick="editMember(\'' + m.id + '\')">Edit</button><button class="btn-delete" onclick="deleteMember(\'' + m.id + '\')">Delete</button></div></div></div>').join('');
-}
-
-window.editMember = async function(id) {
-    const { data } = await supabaseClient.from('team_members').select('*').eq('id', id).single();
-    document.getElementById('memberId').value = data.id;
-    document.getElementById('memberName').value = data.name;
-    document.getElementById('memberPosition').value = data.position;
-    document.getElementById('memberModalTitle').textContent = 'Edit Member';
-    document.getElementById('memberModal').style.display = 'flex';
-};
-
-window.deleteMember = async function(id) {
-    if (confirm('Delete this member?')) { await supabaseClient.from('team_members').delete().eq('id', id); loadTeam(); }
 };
 
 // BLOG
