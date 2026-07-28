@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Soul Winners Ministries Pakistan</title>
+    <link rel="shortcut icon" href="assets/img/soul_logo.png" type="image/png" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/admin.css">
+</head>
+<body>
+
+<!-- Login Section -->
+<div id="loginSection" class="login-section">
+    <div class="login-box">
+        <div class="login-header">
+            <img src="assets/img/soul_logo.png" alt="Logo" class="login-logo">
+            <h2>Admin Panel</h2>
+            <p>Soul Winners Ministries Pakistan</p>
+        </div>
+        <form id="loginForm">
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="loginEmail" placeholder="Enter your email" required>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="loginPassword" placeholder="Enter your password" required>
+            </div>
+            <button type="submit" class="btn-login">Login <i class="fas fa-arrow-right"></i></button>
+            <p id="loginError" class="error-text"></p>
+        </form>
+    </div>
+</div>
+
+<!-- Admin Dashboard -->
+<div id="adminDashboard" class="admin-dashboard" style="display:none;">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <img src="assets/img/soul_logo.png" alt="Logo" class="sidebar-logo">
+            <h3>SWMP Admin</h3>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="#" class="nav-item active" data-section="dashboard"><i class="fas fa-home"></i> Dashboard</a>
+            <a href="#" class="nav-item" data-section="hero"><i class="fas fa-image"></i> Hero Section</a>
+            <a href="#" class="nav-item" data-section="about"><i class="fas fa-info-circle"></i> About</a>
+            <a href="#" class="nav-item" data-section="services"><i class="fas fa-hands-helping"></i> Services</a>
+            <a href="#" class="nav-item" data-section="causes"><i class="fas fa-heart"></i> Causes</a>
+            <a href="#" class="nav-item" data-section="donations"><i class="fas fa-donate"></i> Donations</a>
+            <a href="#" class="nav-item" data-section="team"><i class="fas fa-users"></i> Team</a>
+            <a href="#" class="nav-item" data-section="blog"><i class="fas fa-blog"></i> Blog</a>
+            <a href="#" class="nav-item" data-section="events"><i class="fas fa-calendar"></i> Events</a>
+            <a href="#" class="nav-item" data-section="testimonials"><i class="fas fa-quote-right"></i> Testimonials</a>
+            <a href="#" class="nav-item" data-section="gallery"><i class="fas fa-images"></i> Gallery</a>
+            <a href="#" class="nav-item" data-section="contact"><i class="fas fa-envelope"></i> Contact Messages</a>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="index.html" target="_blank"><i class="fas fa-external-link-alt"></i> View Website</a>
+            <a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="topbar">
+            <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+            <h2 id="pageTitle">Dashboard</h2>
+            <div class="admin-info">
+                <span id="adminEmail"></span>
+            </div>
+        </div>
+
+        <!-- Dashboard Section -->
+        <div id="section-dashboard" class="content-section active">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <i class="fas fa-newspaper"></i>
+                    <h3 id="statBlog">0</h3>
+                    <p>Blog Posts</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-calendar"></i>
+                    <h3 id="statEvents">0</h3>
+                    <p>Events</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-users"></i>
+                    <h3 id="statTeam">0</h3>
+                    <p>Team Members</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-envelope"></i>
+                    <h3 id="statMessages">0</h3>
+                    <p>Messages</p>
+                </div>
+            </div>
+            <div class="recent-section">
+                <h3>Recent Messages</h3>
+                <div id="recentMessages" class="table-container"></div>
+            </div>
+        </div>
+
+        <!-- Hero Section -->
+        <div id="section-hero" class="content-section">
+            <div class="section-header">
+                <h3>Hero Section</h3>
+            </div>
+            <form id="heroForm" class="admin-form">
+                <div class="form-group">
+                    <label>Subtitle</label>
+                    <input type="text" id="heroSubtitle" placeholder="Change The World.">
+                </div>
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" id="heroTitle" placeholder="Need Your Big Hand For Change The World.">
+                </div>
+                <div class="form-group">
+                    <label>Total Raised Amount</label>
+                    <input type="text" id="heroAmount" placeholder="$1M">
+                </div>
+                <div class="form-group">
+                    <label>Slider Image</label>
+                    <input type="file" id="heroImage" accept="image/*">
+                </div>
+                <button type="submit" class="btn-save">Save Changes</button>
+            </form>
+        </div>
+
+        <!-- About Section -->
+        <div id="section-about" class="content-section">
+            <div class="section-header">
+                <h3>About Section</h3>
+            </div>
+            <form id="aboutForm" class="admin-form">
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" id="aboutTitle" placeholder="About Our Organization">
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="aboutDesc" rows="4" placeholder="About description..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Mission</label>
+                    <textarea id="aboutMission" rows="3" placeholder="Mission statement..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Vision</label>
+                    <textarea id="aboutVision" rows="3" placeholder="Vision statement..."></textarea>
+                </div>
+                <button type="submit" class="btn-save">Save Changes</button>
+            </form>
+        </div>
+
+        <!-- Services Section -->
+        <div id="section-services" class="content-section">
+            <div class="section-header">
+                <h3>Services</h3>
+                <button class="btn-add" id="addServiceBtn"><i class="fas fa-plus"></i> Add Service</button>
+            </div>
+            <div id="servicesList" class="items-grid"></div>
+            <!-- Service Modal -->
+            <div id="serviceModal" class="modal" style="display:none;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 id="serviceModalTitle">Add Service</h3>
+                        <button class="modal-close" data-close="serviceModal">&times;</button>
+                    </div>
+                    <form id="serviceForm">
+                        <input type="hidden" id="serviceId">
+                        <div class="form-group">
+                            <label>Service Title</label>
+                            <input type="text" id="serviceName" placeholder="Clean Water" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea id="serviceDesc" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Icon (Font Awesome class)</label>
+                            <input type="text" id="serviceIcon" placeholder="fas fa-tint">
+                        </div>
+                        <button type="submit" class="btn-save">Save Service</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Causes Section -->
+        <div id="section-causes" class="content-section">
+            <div class="section-header">
+                <h3>Causes</h3>
+                <button class="btn-add" id="addCauseBtn"><i class="fas fa-plus"></i> Add Cause</button>
+            </div>
+            <div id="causesList" class="items-grid"></div>
+            <div id="causeModal" class="modal" style="display:none;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 id="causeModalTitle">Add Cause</h3>
+                        <button class="modal-close" data-close="causeModal">&times;</button>
+                    </div>
+                    <form id="causeForm">
+                        <input type="hidden" id="causeId">
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input type="text" id="causeTitle" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea id="causeDesc" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Goal Amount ($)</label>
+                            <input type="number" id="causeGoal" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Raised Amount ($)</label>
+                            <input type="number" id="causeRaised" value="0">
+                        </div>
+                        <div class="form-group">
+                            <label>Image</label>
+                            <input type="file" id="causeImage" accept="image/*">
+                        </div>
+                        <button type="submit" class="btn-save">Save Cause</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Donations Section -->
+        <div id="section-donations" class="content-section">
+            <div class="section-header">
+                <h3>Donations</h3>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <i class="fas fa-dollar-sign"></i>
+                    <h3 id="totalDonations">$0</h3>
+                    <p>Total Raised</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-hand-holding-heart"></i>
+                    <h3 id="donorCount">0</h3>
+                    <p>Total Donors</p>
+                </div>
+            </div>
+            <div class="recent-section">
+                <h3>Recent Donations</h3>
+                <div id="donationsList" class="table-container"></div>
+            </div>
+        </div>
+
+        <!-- Team Section -->
+        <div id="section-team" class="content-section">
+            <div class="section-header">
+                <h3>Team Members</h3>
+                <button class="btn-add" id="addMemberBtn"><i class="fas fa-plus"></i> Add Member</button>
+            </div>
+            <div id="teamList" class="items-grid"></div>
+            <div id="memberModal" class="modal" style="display:none;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 id="memberModalTitle">Add Member</h3>
+                        <button class="modal-close" data-close="memberModal">&times;</button>
+                    </div>
+                    <form id="memberForm">
+                        <input type="hidden" id="memberId">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" id="memberName" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Position</label>
+                            <input type="text" id="memberPosition" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Photo</label>
+                            <input type="file" id="memberPhoto" accept="image/*">
+                        </div>
+                        <button type="submit" class="btn-save">Save Member</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blog Section -->
+        <div id="section-blog" class="content-section">
+            <div class="section-header">
+                <h3>Blog Posts</h3>
+                <button class="btn-add" id="addBlogBtn"><i class="fas fa-plus"></i> Add Post</button>
+            </div>
+            <div id="blogList" class="items-grid"></div>
+            <div id="blogModal" class="modal" style="display:none;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 id="blogModalTitle">Add Blog Post</h3>
+                        <button class="modal-close" data-close="blogModal">&times;</button>
+                    </div>
+                    <form id="blogForm">
+                        <input type="hidden" id="blogId">
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input type="text" id="blogTitle" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Author</label>
+                            <input type="text" id="blogAuthor" value="Admin">
+                        </div>
+                        <div class="form-group">
+                            <label>Category</label>
+                            <input type="text" id="blogCategory" placeholder="News, Events, etc.">
+                        </div>
+                        <div class="form-group">
+                            <label>Content</label>
+                            <textarea id="blogContent" rows="6" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Featured Image</label>
+                            <input type="file" id="blogImage" accept="image/*">
+                        </div>
+                        <button type="submit" class="btn-save">Save Post</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Events Section -->
+        <div id="section-events" class="content-section">
+            <div class="section-header">
+                <h3>Events</h3>
+                <button class="btn-add" id="addEventBtn"><i class="fas fa-plus"></i> Add Event</button>
+            </div>
+            <div id="eventsList" class="items-grid"></div>
+            <div id="eventModal" class="modal" style="display:none;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 id="eventModalTitle">Add Event</h3>
+                        <button class="modal-close" data-close="eventModal">&times;</button>
+                    </div>
+                    <form id="eventForm">
+                        <input type="hidden" id="eventId">
+                        <div class="form-group">
+                            <label>Event Title</label>
+                            <input type="text" id="eventTitle" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Date</label>
+                            <input type="date" id="eventDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Location</label>
+                            <input type="text" id="eventLocation" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea id="eventDesc" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Image</label>
+                            <input type="file" id="eventImage" accept="image/*">
+                        </div>
+                        <button type="submit" class="btn-save">Save Event</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Testimonials Section -->
+        <div id="section-testimonials" class="content-section">
+            <div class="section-header">
+                <h3>Testimonials</h3>
+                <button class="btn-add" id="addTestimonialBtn"><i class="fas fa-plus"></i> Add Testimonial</button>
+            </div>
+            <div id="testimonialsList" class="items-grid"></div>
+            <div id="testimonialModal" class="modal" style="display:none;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 id="testimonialModalTitle">Add Testimonial</h3>
+                        <button class="modal-close" data-close="testimonialModal">&times;</button>
+                    </div>
+                    <form id="testimonialForm">
+                        <input type="hidden" id="testimonialId">
+                        <div class="form-group">
+                            <label>Client Name</label>
+                            <input type="text" id="testimonialName" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Designation</label>
+                            <input type="text" id="testimonialDesignation" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Quote</label>
+                            <textarea id="testimonialQuote" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Photo</label>
+                            <input type="file" id="testimonialPhoto" accept="image/*">
+                        </div>
+                        <button type="submit" class="btn-save">Save Testimonial</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gallery Section -->
+        <div id="section-gallery" class="content-section">
+            <div class="section-header">
+                <h3>Gallery</h3>
+                <button class="btn-add" id="addGalleryBtn"><i class="fas fa-plus"></i> Add Image</button>
+            </div>
+            <div id="galleryList" class="items-grid"></div>
+        </div>
+
+        <!-- Contact Messages -->
+        <div id="section-contact" class="content-section">
+            <div class="section-header">
+                <h3>Contact Messages</h3>
+            </div>
+            <div id="messagesList" class="table-container"></div>
+        </div>
+
+    </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/admin.js"></script>
+</body>
+</html>
